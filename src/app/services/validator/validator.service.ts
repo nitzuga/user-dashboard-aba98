@@ -86,7 +86,15 @@ export class ValidatorService {
    * @description
    * Verifies name length and format.
    */
-  isName(name: string): boolean {
+  isName(name: any): boolean {
+    if ( this.isEmpty(name) ) {
+      return false;
+    }
+
+    if ( typeof name !== 'string' ) {
+      return false;
+    }
+
     if ( name.length < 1 ) {
       return false;
     }
@@ -102,7 +110,15 @@ export class ValidatorService {
    * @description
    * Verifies lastname length and format.
    */
-  isLastName(lastname: string): boolean {
+  isLastName(lastname: any): boolean {
+    if ( this.isEmpty(lastname) ) {
+      return false;
+    }
+
+    if ( typeof lastname !== 'string' ) {
+      return false;
+    }
+
     if ( lastname.length < 1 ) {
       return false;
     }
@@ -130,4 +146,8 @@ export class ValidatorService {
     const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     return regexp.test(email);
   } // end func email
-}
+
+  isEmpty(v: any): boolean {
+    return !(v !== null && v !== undefined);
+  } // notEmpty
+} // ValidatorService
