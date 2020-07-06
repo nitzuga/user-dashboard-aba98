@@ -81,4 +81,53 @@ export class ValidatorService {
 
     return true;
   } // end func rutValidation
+
+  /**
+   * @description
+   * Verifies name length and format.
+   */
+  isName(name: string): boolean {
+    if ( name.length < 1 ) {
+      return false;
+    }
+
+    // max 50char
+    if ( name.length > 50 ) {
+      return false;
+    }
+    return true;
+  } // end func isName
+
+  /**
+   * @description
+   * Verifies lastname length and format.
+   */
+  isLastName(lastname: string): boolean {
+    if ( lastname.length < 1 ) {
+      return false;
+    }
+
+    // max 50char
+    if ( lastname.length > 60 ) {
+      return false;
+    }
+    return true;
+  } // end func isName
+
+  /**
+   * @description
+   * Email validation, using regular expression.
+   * @param email string with email
+   */
+  isEmail(email: string): boolean {
+    if ( email.length === 0 || email.length >= 100 ) {
+      // email too short or too long
+      return false;
+    }
+
+    // standard regular expression for valid email
+    // tslint:disable-next-line:max-line-length
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return regexp.test(email);
+  } // end func email
 }
