@@ -21,11 +21,15 @@ export interface Person {
      * @description
      * Age of the person. Must be over 18.
      */
-    age: number; // > 18
+    age?: number; // > 18
 
     /**
      * @description
      * Max 400 characters. Multiline.
      */
-    address: string; // max 400 char, multiline
+    address?: string; // max 400 char, multiline
+
+    // timestamps
+    createdAt?: any;
+    updatedAt?: any;
 }
