@@ -7,6 +7,50 @@ export class ValidatorService {
 
   constructor() { }
 
+  isAddress(address: any): boolean {
+    if ( this.isEmpty(address) ) {
+      return false;
+    }
+
+    if ( typeof address !== 'string' ) {
+      return false;
+    }
+
+    // max 400char
+    if ( address.length > 400 ) {
+      return false;
+    }
+
+    return true;
+  } // end func address
+
+  isAge(age: any) {
+    if ( this.isEmpty(age) ) {
+      return false;
+    }
+
+    if ( typeof age !== 'number' ) {
+      return false;
+    }
+
+    // int
+    if  ( !Number.isInteger(age) ) {
+      return false;
+    }
+
+    // min age
+    if ( age < 18 ) {
+      return false;
+    }
+
+    // max age 120 for ref
+    if ( age < 120 ) {
+      return false;
+    }
+
+    return true;
+  } // end func isAge
+
   isRut(rutDV: string): boolean {
     // does it have DV?
     if ( rutDV.indexOf('-') === -1 ) {
