@@ -9,51 +9,54 @@
         </mat-toolbar-row>
     </mat-toolbar>
 </section>
+
 <section>
-    <mat-grid-list cols="2">
-        <mat-grid-tile *ngFor="let person of persons">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>{{ person.lastname | titlecase }}</mat-card-title>
-                        <mat-card-subtitle>{{ person.name | titlecase }}</mat-card-subtitle>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-divider></mat-divider>
-                    <div class="card-item">
-                        <div>
-                            <mat-icon>person</mat-icon>
-                        </div>
-                        <div>
-                            <span>{{ person.rut }}</span>
-                        </div>
+    <div class="spinner-wrapper" *ngIf="loading">
+        <mat-spinner ></mat-spinner>
+    </div>
+    <div class="card-list" *ngIf="!loading">
+        <mat-card *ngFor="let person of persons">
+            <mat-card-header>
+                <mat-card-title-group>
+                    <mat-card-title>{{ person.lastname | titlecase }}</mat-card-title>
+                    <mat-card-subtitle>{{ person.name | titlecase }}</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-divider></mat-divider>
+                <div class="card-item">
+                    <div>
+                        <mat-icon>person</mat-icon>
                     </div>
-                    <div class="card-item" *ngIf="person.age" >
-                        <div>
-                            <mat-icon>cake</mat-icon>
-                        </div>
-                        <div>
-                            <span>{{ person.age }} birthdays</span>
-                        </div>
+                    <div>
+                        <span>{{ person.rut }}</span>
                     </div>
-                    <div class="card-item" *ngIf="person.address">
-                        <div>
-                            <mat-icon>home</mat-icon>
-                        </div>
-                        <div>
-                            <span>{{ person.address }}</span>
-                        </div>
+                </div>
+                <div class="card-item" *ngIf="person.age" >
+                    <div>
+                        <mat-icon>cake</mat-icon>
                     </div>
-                    <mat-divider></mat-divider>
-                    <mat-card-actions>
-                        <button (click)="edit(person)"  mat-button color="primary">Edit</button>
-                        <button (click)="deletePerson(person)"  mat-button color="warn">Delete</button>
-                    </mat-card-actions>
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>      
+                    <div>
+                        <span>{{ person.age }} birthdays</span>
+                    </div>
+                </div>
+                <div class="card-item" *ngIf="person.address">
+                    <div>
+                        <mat-icon>home</mat-icon>
+                    </div>
+                    <div>
+                        <span>{{ person.address }}</span>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <button [disabled]="loading" (click)="edit(person)"  mat-button color="primary">Edit</button>
+                    <button [disabled]="loading" (click)="deletePerson(person)"  mat-button color="warn">Delete</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>     
+    </div>
+    
 </section>
   
 

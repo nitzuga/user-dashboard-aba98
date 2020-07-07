@@ -26,8 +26,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log('init');
     if ( !this.sub ) {
+      this.loading = true;
       this.sub = this.personService.list()
         .subscribe((persons: Array<Person>) => {
+          this.loading = false;
           console.log('reads');
           if ( persons ) {
             console.log(persons);
@@ -35,7 +37,9 @@ export class HomeComponent implements OnInit {
           }
         }, (err) => {
           console.error(err);
-        });
+        }, () => this.loading = false);
+    } else {
+      // debug
     }
   } // init
 
@@ -45,8 +49,14 @@ export class HomeComponent implements OnInit {
         .catch((err) => console.error(err));
   } // end func newPerson
 
-  deletePerson(person: Person) {
-    this.personService.delete(person.rut);
+  deletePerson( person: Person) {
+    this.loading = true;
+    this.personService.delete(person.rut)
+      .then(() => {
+        console.log('person deleted');
+      })
+      .finally(() => this.loading = false)
+      .catch((err) => console.error(err));
   } // end func delete Person
 
   edit(person: Person) {
@@ -55,7 +65,7 @@ export class HomeComponent implements OnInit {
       .catch((err) => console.error(err));
   } // end func edit
 
-  onDestroy() {
+  OnDestroy() {
     console.log('destroy');
     if ( this.sub ) {
       this.sub.unsubscribe();
