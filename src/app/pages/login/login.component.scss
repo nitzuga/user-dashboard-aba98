@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;   
+}
+
+.mat-card-header-text {
+    padding: 0;
+    margin: 0;
+}
+
+.pinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center; 
+}
