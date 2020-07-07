@@ -2,6 +2,7 @@ import { PersonService } from './../../services/person/person.service';
 import { Person } from './../../model/person.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ export class HomeComponent implements OnInit {
   persons: Array<Person>;
   loading: boolean; // for ghost div
 
+  private sub: Subscription;
+
   constructor(
     private personService: PersonService,
     private router: Router
@@ -21,15 +24,23 @@ export class HomeComponent implements OnInit {
   } // end constructor
 
   ngOnInit(): void {
-    this.personService.list()
-      .subscribe((persons: Array<Person>) => {
-        if ( persons ) {
-          console.log(persons);
-          this.persons = persons;
-        }
-      }, (err) => {
-        console.error(err);
-      });
+    console.log('init');
+    if ( !this.sub ) {
+      this.loading = true;
+      this.sub = this.personService.list()
+        .subscribe((persons: Array<Person>) => {
+          this.loading = false;
+          console.log('reads');
+          if ( persons ) {
+            console.log(persons);
+            this.persons = persons;
+          }
+        }, (err) => {
+          console.error(err);
+        }, () => this.loading = false);
+    } else {
+      // debug
+    }
   } // init
 
   newPerson() {
@@ -38,8 +49,14 @@ export class HomeComponent implements OnInit {
         .catch((err) => console.error(err));
   } // end func newPerson
 
-  deletePerson(person: Person) {
-    this.personService.delete(person.rut);
+  deletePerson( person: Person) {
+    this.loading = true;
+    this.personService.delete(person.rut)
+      .then(() => {
+        console.log('person deleted');
+      })
+      .finally(() => this.loading = false)
+      .catch((err) => console.error(err));
   } // end func delete Person
 
   edit(person: Person) {
@@ -47,4 +64,11 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/person/' + person.rut)
       .catch((err) => console.error(err));
   } // end func edit
+
+  OnDestroy() {
+    console.log('destroy');
+    if ( this.sub ) {
+      this.sub.unsubscribe();
+    }
+  }
 }

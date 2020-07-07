@@ -30,21 +30,25 @@ export class ValidatorService {
     }
 
     if ( typeof age !== 'number' ) {
+      console.error('age not number');
       return false;
     }
 
     // int
     if  ( !Number.isInteger(age) ) {
+      console.error('age not int');
       return false;
     }
 
     // min age
     if ( age < 18 ) {
+      console.error('min age');
       return false;
     }
 
     // max age 120 for ref
-    if ( age < 120 ) {
+    if ( age > 120 ) {
+      console.error('max age');
       return false;
     }
 

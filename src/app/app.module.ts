@@ -14,6 +14,7 @@ import { environment } from './../environments/environment';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { PersonComponent } from './pages/person/person.component';
 
 // material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,10 +25,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PersonComponent } from './pages/person/person.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -56,7 +57,8 @@ import { PersonComponent } from './pages/person/person.component';
     MatGridListModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

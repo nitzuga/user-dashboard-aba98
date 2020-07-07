@@ -1,2 +1,49 @@
-<p>person works!</p>
-{{ person | json }}
+<section class="container-fluid">
+    <div class="container">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>{{ label }} Person</mat-card-title>
+                <form>
+                    <div>
+                        <mat-form-field class="card-item">
+                            <mat-label>Name</mat-label>
+                            <input required [readonly]="loading" type="text" [(ngModel)]="person.name" name="name" matInput placeholder="" >
+                            <mat-hint align="end">{{ person.name.length || 0 }}/50</mat-hint>
+                            <mat-error *ngIf="invalid.name">Name is not valid input</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="card-item">
+                            <mat-label>Last Name</mat-label>
+                            <input required [readonly]="loading" type="text" [(ngModel)]="person.lastname" name="lastname" matInput placeholder="" >
+                            <mat-hint align="end">{{ person.lastname.length || 0 }}/60</mat-hint>
+                            <mat-error align="start" *ngIf="invalid.lastname">Last name is not valid input</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="card-item">
+                            <mat-label>Rut</mat-label>
+                            <input required [readonly]="loading" type="text" [(ngModel)]="person.rut" name="rut" matInput placeholder="Rut" >
+                            <mat-hint align="end">Example: 11222333-4</mat-hint>
+                            <mat-error align="start" *ngIf="invalid.rut">Rut is not a valid input</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="card-item">
+                            <mat-label>Age</mat-label>
+                            <input [readonly]="loading" max="120" min="19" type="number" [(ngModel)]="person.age" name="age" matInput placeholder="Age" >
+                            <mat-hint align="end">max 120</mat-hint>
+                            <mat-error align="start" *ngIf="invalid.age">Age must be over 18</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field class="card-item">
+                        <mat-label>Address</mat-label>
+                        <textarea hintLabel="Max 400 characters" maxlength="400" [readonly]="loading" type="text" [(ngModel)]="person.address" name="address" matInput ></textarea>
+                        <mat-hint align="end">{{ person.address.length || 0 }}/400</mat-hint>
+                    </mat-form-field>
+                    <mat-divider></mat-divider>
+                </form>
+                <mat-card-actions>
+                    <button [disabled]="loading || (person.name === '' || person.lastname === '' || person.rut === '')" (click)="save()"  mat-button color="primary">Save</button>
+                    <button routerLink="/home"  mat-button color="basic">Cancel</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</section>

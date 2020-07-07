@@ -22,7 +22,9 @@ export class PersonService {
     return {
       rut: '',
       name: '',
-      lastname: ''
+      lastname: '',
+      age: 19,
+      address: ''
     } as Person;
   } // end func default
 
@@ -40,21 +42,29 @@ export class PersonService {
    * Validates data and format of values in object Person.
    */
   isPerson( person: Person ) {
+    const errors = [];
     // validate required fields
     if ( !this.validator.isName(person.name) ) {
-      return false;
+      console.error('invalid name');
+      errors.push('name');
     }
 
     if ( !this.validator.isLastName(person.lastname) ) {
-      return false;
+      console.error('invalid lastname');
+      errors.push('lastname');
+    }
+
+    if ( !this.validator.isRut(person.rut) ) {
+      errors.push('rut');
     }
 
     // check for not required fields
     if ( person.age ) {
       // validate age
       if ( !this.validator.isAge(person.age) ) {
+        console.error('invalid age');
         // address out of format or too young
-        return false;
+        errors.push('age');
       }
     }
 
@@ -62,11 +72,12 @@ export class PersonService {
     if ( person.address ) {
       // validate address
       if ( !this.validator.isAddress(person.address) ) {
+        console.error('invalid address');
         // address out of format
-        return false;
+        errors.push('address');
       }
     }
-    return true;
+    return errors;
   } // end func isPerson
 
   list() {
