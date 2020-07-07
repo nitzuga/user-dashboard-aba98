@@ -1,0 +1,36 @@
+<section>
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let person of persons">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>{{ person.lastname | titlecase }}</mat-card-title>
+                        <mat-card-subtitle>{{ person.name | titlecase }}</mat-card-subtitle>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-divider></mat-divider>
+                    <div>
+                        <label>Rut</label>
+                        <p>{{ person.rut }}</p>
+                    </div>
+                    <div *ngIf="person.age" >
+                        <label>Age</label>
+                        <p>{{ person.age }}</p>
+                    </div>
+                    <div *ngIf="person.address">
+                        <label>Address</label>
+                        <p>{{ person.address }}</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <button (click)="edit(person)"  mat-button color="primary">Edit</button>
+                        <button (click)="deletePerson(person)"  mat-button color="warn">Delete</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>      
+</section>
+  
+
