@@ -19,6 +19,10 @@ export class DatabaseService {
     private fb: AngularFirestore
   ) {}
 
+  list(collection: string) {
+    return this.fb.collection(collection).valueChanges();
+  } // end func list
+
   set(collection: string, id: string, data: any): Promise<void> {
     data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
     data.updatedAt = firebase.firestore.FieldValue.serverTimestamp();

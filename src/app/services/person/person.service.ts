@@ -28,34 +28,6 @@ export class PersonService {
 
   /**
    * @description
-   * Provides an Observable with data of the Person with specified id.
-   * @param id Rut of the person. Unique in DB.
-   */
-  watch(id) {
-    return this.db.watch(this.COLLECTION_ID, id);
-  } // end func watch
-
-  /**
-   * @description
-   * Saves Person data to the database. Creates a new one if does not exists.
-   * @param id database id for this person. Use same as rut as is unique.
-   * @param data object with person data.
-   */
-  set(id, data) {
-    if ( !this.isPerson(data) ) {
-      return Promise.reject(false);
-    }
-    return this.db.set(this.COLLECTION_ID, id, data)
-      .then(() => {
-        return Promise.resolve(true);
-      }, (reason) => {
-        console.error(reason);
-        return Promise.reject(false);
-      });
-  } // end func set
-
-  /**
-   * @description
    * Validates data and format of values in object Person.
    */
   isPerson( person: Person ) {
@@ -87,4 +59,36 @@ export class PersonService {
     }
     return true;
   } // end func isPerson
+
+  list() {
+    return this.db.list(this.COLLECTION_ID);
+  } // end func list
+
+  /**
+   * @description
+   * Saves Person data to the database. Creates a new one if does not exists.
+   * @param id database id for this person. Use same as rut as is unique.
+   * @param data object with person data.
+   */
+  set(id, data) {
+    if ( !this.isPerson(data) ) {
+      return Promise.reject(false);
+    }
+    return this.db.set(this.COLLECTION_ID, id, data)
+      .then(() => {
+        return Promise.resolve(true);
+      }, (reason) => {
+        console.error(reason);
+        return Promise.reject(false);
+      });
+  } // end func set
+
+  /**
+   * @description
+   * Provides an Observable with data of the Person with specified id.
+   * @param id Rut of the person. Unique in DB.
+   */
+  watch(id) {
+    return this.db.watch(this.COLLECTION_ID, id);
+  } // end func watch
 }
