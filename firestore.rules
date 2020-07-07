@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    match /persons/{rut} {
+    	allow read: if isAdmin();
+      allow write: if isAdmin() 
+      	&& 'rut' in request.resource.data
+        && isRut(request.resource.data.rut)
+        && 'name' in request.resource.data
+        && isName(request.resource.data.name)
+        && 'lastname' in request.resource.data
+        && isLastName(request.resource.data.lastname)
+        && hasAge()
+        && hasAddress()
+    }
+  }
+  
+  function isAddress(address) {
+  	return address is string
+    	&& address.size() > 0
+      && address.size() < 400;
+  }
+  
+  function isAge(age) {
+  	return age is number
+    	&& age < 120
+      && age >= 18
+  }
+  
+  function isLastName(lastname) {
+  	return lastname is string
+    	&& lastname.size() > 0
+      && lastname.size() < 60;
+  }
+  
+  function isName(name) {
+  	return name is string
+    	&& name.size() > 0
+      && name.size() < 50;
+  }
+  
+  function isRut(rut) {
+  	return rut is string
+    	&& rut.size() > 0
+      && rut.size() < 12;
+  }
+  
+  function hasAge() {
+  	return !('age' in request.resource.data) 
+    	|| isAge(request.resource.data.age);
+  }
+  
+  function hasAddress() {
+  	return !('address' in request.resource.data) 
+    	|| isAddress(request.resource.data.address);
+  }
+  
+  /**
+  *	Simple admin verification. Static to just one ID. 
+  *	Only for testing environment.
+  **/
+  function isAdmin() {
+  	return request.auth.uid != null
+    	&& request.auth.uid == '16t5jmhLGNYztXCq6JetOxALWO13';
+  }
+}
