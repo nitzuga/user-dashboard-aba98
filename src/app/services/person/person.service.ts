@@ -19,6 +19,15 @@ export class PersonService {
 
   /**
    * @description
+   * Delete Person object with specified id.
+   * @param id String with rut of the person.
+   */
+  delete(id) {
+    return this.db.delete('persons', id);
+  } // end func delete
+
+  /**
+   * @description
    * Saves Person data to the database. Creates a new one if does not exists.
    * @param id database id for this person. Use same as rut as is unique.
    * @param data object with person data.
@@ -34,7 +43,7 @@ export class PersonService {
         console.error(reason);
         return Promise.reject(false);
       });
-  } // end func
+  } // end func set
 
   /**
    * @description
