@@ -7,7 +7,7 @@ service cloud.firestore {
     
     match /persons/{rut} {
     	allow read: if isAdmin();
-      allow write: if isAdmin() 
+      allow create, update: if isAdmin() 
       	&& 'rut' in request.resource.data
         && isRut(request.resource.data.rut)
         && 'name' in request.resource.data
@@ -15,20 +15,23 @@ service cloud.firestore {
         && 'lastname' in request.resource.data
         && isLastName(request.resource.data.lastname)
         && hasAge()
-        && hasAddress()
+        && hasAddress();
+      allow delete: if isAdmin();
     }
   }
   
-  function isAddress(address) {
-  	return address is string
-    	&& address.size() > 0
-      && address.size() < 400;
+  function isAddress() {
+  	return 'address' in request.resource.data
+    	&& request.resource.data.address is string
+    	&& request.resource.data.address.size() > 0
+      && request.resource.data.address.size() < 400;
   }
   
-  function isAge(age) {
-  	return age is number
-    	&& age < 120
-      && age >= 18
+  function isAge() {
+  	return 'age' in request.resource.data
+    	&& request.resource.data.age is number
+    	&& request.resource.data.age < 120
+      && (request.resource.data.age > 18 || request.resource.data.age == 0);
   }
   
   function isLastName(lastname) {
@@ -51,12 +54,12 @@ service cloud.firestore {
   
   function hasAge() {
   	return !('age' in request.resource.data) 
-    	|| isAge(request.resource.data.age);
+    	|| isAge();
   }
   
   function hasAddress() {
   	return !('address' in request.resource.data) 
-    	|| isAddress(request.resource.data.address);
+    	|| isAddress();
   }
   
   /**
