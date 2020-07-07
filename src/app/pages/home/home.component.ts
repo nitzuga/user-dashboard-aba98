@@ -32,11 +32,19 @@ export class HomeComponent implements OnInit {
       });
   } // init
 
+  newPerson() {
+      this.personService.person = this.personService.default();
+      this.router.navigateByUrl('/person/new')
+        .catch((err) => console.error(err));
+  } // end func newPerson
+
   deletePerson(person: Person) {
     this.personService.delete(person.rut);
   } // end func delete Person
 
   edit(person: Person) {
-    this.router.navigateByUrl('/person');
+    this.personService.person = person;
+    this.router.navigateByUrl('/person/' + person.rut)
+      .catch((err) => console.error(err));
   } // end func edit
 }

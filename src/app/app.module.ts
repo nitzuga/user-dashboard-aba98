@@ -27,6 +27,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PersonComponent } from './pages/person/person.component';
 
 
 
@@ -35,7 +36,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,

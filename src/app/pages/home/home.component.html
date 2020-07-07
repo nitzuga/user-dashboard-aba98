@@ -1,4 +1,11 @@
 <section>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <button (click)="newPerson()" mat-raised-button color="primary">New</button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</section>
+<section>
     <mat-grid-list cols="2">
         <mat-grid-tile *ngFor="let person of persons">
             <mat-card>
