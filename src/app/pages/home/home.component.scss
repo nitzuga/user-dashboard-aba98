@@ -1,0 +1,15 @@
+mat-card {
+    padding-bottom: 0;
+}
+
+.card-item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+    padding: 0.5rem 0;
+}
+
+.card-item mat-icon {
+    padding: 0 1rem 0 .5rem;
+}

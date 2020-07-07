@@ -1,0 +1,55 @@
+<section>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <button (click)="newPerson()" mat-raised-button color="primary">New</button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</section>
+<section>
+    <mat-grid-list cols="2">
+        <mat-grid-tile *ngFor="let person of persons">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>{{ person.lastname | titlecase }}</mat-card-title>
+                        <mat-card-subtitle>{{ person.name | titlecase }}</mat-card-subtitle>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-divider></mat-divider>
+                    <div class="card-item">
+                        <div>
+                            <mat-icon>person</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.rut }}</span>
+                        </div>
+                    </div>
+                    <div class="card-item" *ngIf="person.age" >
+                        <div>
+                            <mat-icon>cake</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.age }} birthdays</span>
+                        </div>
+                    </div>
+                    <div class="card-item" *ngIf="person.address">
+                        <div>
+                            <mat-icon>home</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.address }}</span>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <button (click)="edit(person)"  mat-button color="primary">Edit</button>
+                        <button (click)="deletePerson(person)"  mat-button color="warn">Delete</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>      
+</section>
+  
+

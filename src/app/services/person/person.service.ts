@@ -12,10 +12,19 @@ import { ValidatorService } from './../validator/validator.service';
 })
 export class PersonService {
   private readonly COLLECTION_ID = 'persons';
+  person: Person;
   constructor(
     private db: DatabaseService,
     private validator: ValidatorService
   ) {}
+
+  default() {
+    return {
+      rut: '',
+      name: '',
+      lastname: ''
+    } as Person;
+  } // end func default
 
   /**
    * @description
