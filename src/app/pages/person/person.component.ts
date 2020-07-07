@@ -17,6 +17,9 @@ export class PersonComponent implements OnInit {
   person: Person;
   loading: boolean;
   label: string;
+  age: number;
+  address: string;
+
   invalid = {
     rut: false,
     name: false,
@@ -36,10 +39,20 @@ export class PersonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.age = null;
+    this.address = '';
+
     if ( !this.personService.person ) {
       this.personService.person = this.personService.default();
     }
     this.person = this.personService.person;
+    if ( this.person.age ) {
+      this.age = this.person.age;
+    }
+
+    if ( this.person.address ) {
+      this.address = this.person.address;
+    }
 
     if ( this.person.rut === '' ) {
       this.label = 'Create';
@@ -51,6 +64,15 @@ export class PersonComponent implements OnInit {
   save() {
     this.loading = true;
     console.log(this.person);
+
+    if ( this.age ) {
+      this.person.age = this.age;
+    }
+
+    if ( this.address ) {
+      this.person.address = this.address;
+    }
+
     this.errors = this.personService.isPerson(this.person);
     if ( this.errors.length === 0 ) {
       for (const key in this.invalid) {
@@ -58,11 +80,24 @@ export class PersonComponent implements OnInit {
           this.invalid[key] = false;
         }
       }
-      this.personService.set(this.person.rut, this.person)
-        .then(() => {
-          return this.router.navigateByUrl('/home');
+
+      this.personService.search(this.person.rut)
+        .then((exists) => {
+          console.log(exists);
+          if ( this.personService.person.rut !== this.person.rut && exists ) {
+            return this.snackBar.open('Rut already exists!', 'Nevermind!', {duration: 5000});
+          }
+
+          return this.personService.set(this.person.rut, this.person)
+              .then(() => {
+                return this.router.navigateByUrl('/home');
+              })
+              .then(() => this.snackBar.open('Creation process was succesfull!', 'Great!', {duration: 5000}));
         })
-        .then(() => this.snackBar.open('Creation process was succesfull!', 'Great!', {duration: 5000}))
+        .catch((err) => {
+          console.error(err);
+          this.snackBar.open('There was an error with security rules!', 'Oops!', {duration: 5000});
+        })
         .finally(() => {
           this.loading = false;
         });

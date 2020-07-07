@@ -32,20 +32,20 @@
                         <span>{{ person.rut }}</span>
                     </div>
                 </div>
-                <div class="card-item" *ngIf="person.age" >
+                <div class="card-item">
                     <div>
                         <mat-icon>cake</mat-icon>
                     </div>
                     <div>
-                        <span>{{ person.age }} birthdays</span>
+                        <span>{{ person.age || '?' }} birthdays</span>
                     </div>
                 </div>
-                <div class="card-item" *ngIf="person.address">
+                <div class="card-item">
                     <div>
                         <mat-icon>home</mat-icon>
                     </div>
                     <div>
-                        <span>{{ person.address }}</span>
+                        <span>{{ person.address || '-' }}</span>
                     </div>
                 </div>
                 <mat-divider></mat-divider>

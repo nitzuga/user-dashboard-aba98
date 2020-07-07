@@ -27,15 +27,15 @@
                         </mat-form-field>
                         <mat-form-field class="card-item">
                             <mat-label>Age</mat-label>
-                            <input [readonly]="loading" max="120" min="19" type="number" [(ngModel)]="person.age" name="age" matInput placeholder="Age" >
+                            <input [readonly]="loading" max="120" min="19" type="number" [(ngModel)]="age" name="age" matInput placeholder="Age" >
                             <mat-hint align="end">max 120</mat-hint>
                             <mat-error align="start" *ngIf="invalid.age">Age must be over 18</mat-error>
                         </mat-form-field>
                     </div>
                     <mat-form-field class="card-item">
                         <mat-label>Address</mat-label>
-                        <textarea hintLabel="Max 400 characters" maxlength="400" [readonly]="loading" type="text" [(ngModel)]="person.address" name="address" matInput ></textarea>
-                        <mat-hint align="end">{{ person.address.length || 0 }}/400</mat-hint>
+                        <textarea hintLabel="Max 400 characters" maxlength="400" [readonly]="loading" type="text" [(ngModel)]="address" name="address" matInput ></textarea>
+                        <mat-hint align="end">{{ address.length || 0 }}/400</mat-hint>
                     </mat-form-field>
                     <mat-divider></mat-divider>
                 </form>
