@@ -2,6 +2,7 @@ import { PersonService } from './../../services/person/person.service';
 import { Person } from './../../model/person.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ export class HomeComponent implements OnInit {
   persons: Array<Person>;
   loading: boolean; // for ghost div
 
+  private sub: Subscription;
+
   constructor(
     private personService: PersonService,
     private router: Router
@@ -21,15 +24,19 @@ export class HomeComponent implements OnInit {
   } // end constructor
 
   ngOnInit(): void {
-    this.personService.list()
-      .subscribe((persons: Array<Person>) => {
-        if ( persons ) {
-          console.log(persons);
-          this.persons = persons;
-        }
-      }, (err) => {
-        console.error(err);
-      });
+    console.log('init');
+    if ( !this.sub ) {
+      this.sub = this.personService.list()
+        .subscribe((persons: Array<Person>) => {
+          console.log('reads');
+          if ( persons ) {
+            console.log(persons);
+            this.persons = persons;
+          }
+        }, (err) => {
+          console.error(err);
+        });
+    }
   } // init
 
   newPerson() {
@@ -47,4 +54,11 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/person/' + person.rut)
       .catch((err) => console.error(err));
   } // end func edit
+
+  onDestroy() {
+    console.log('destroy');
+    if ( this.sub ) {
+      this.sub.unsubscribe();
+    }
+  }
 }

@@ -1,7 +1,11 @@
 <section>
-    <mat-toolbar>
+    <mat-toolbar color="primary">
         <mat-toolbar-row>
-            <button (click)="newPerson()" mat-raised-button color="primary">New</button>
+            <span class="example-spacer"></span>
+            <button (click)="newPerson()" mat-raised-button color="link">
+                New
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
         </mat-toolbar-row>
     </mat-toolbar>
 </section>
