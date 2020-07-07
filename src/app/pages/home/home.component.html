@@ -1,5 +1,5 @@
 <section>
-    <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-list cols="2">
         <mat-grid-tile *ngFor="let person of persons">
             <mat-card>
                 <mat-card-header>
@@ -10,17 +10,29 @@
                 </mat-card-header>
                 <mat-card-content>
                     <mat-divider></mat-divider>
-                    <div>
-                        <label>Rut</label>
-                        <p>{{ person.rut }}</p>
+                    <div class="card-item">
+                        <div>
+                            <mat-icon>person</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.rut }}</span>
+                        </div>
                     </div>
-                    <div *ngIf="person.age" >
-                        <label>Age</label>
-                        <p>{{ person.age }}</p>
+                    <div class="card-item" *ngIf="person.age" >
+                        <div>
+                            <mat-icon>cake</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.age }} birthdays</span>
+                        </div>
                     </div>
-                    <div *ngIf="person.address">
-                        <label>Address</label>
-                        <p>{{ person.address }}</p>
+                    <div class="card-item" *ngIf="person.address">
+                        <div>
+                            <mat-icon>home</mat-icon>
+                        </div>
+                        <div>
+                            <span>{{ person.address }}</span>
+                        </div>
                     </div>
                     <mat-divider></mat-divider>
                     <mat-card-actions>
