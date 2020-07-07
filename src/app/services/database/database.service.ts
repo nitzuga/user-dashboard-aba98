@@ -19,6 +19,10 @@ export class DatabaseService {
     private fb: AngularFirestore
   ) {}
 
+  get(id: string) {
+    return this.fb.doc(id).ref.get();
+  } // end func get
+
   list(collection: string) {
     return this.fb.collection(collection).valueChanges();
   } // end func list

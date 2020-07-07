@@ -22,11 +22,13 @@ export class PersonService {
     return {
       rut: '',
       name: '',
-      lastname: '',
-      age: 19,
-      address: ''
+      lastname: ''
     } as Person;
   } // end func default
+
+  search(rut: string) {
+    return this.db.get('/persons/' + rut);
+  } // end func search
 
   /**
    * @description
