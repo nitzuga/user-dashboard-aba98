@@ -11,7 +11,7 @@ import { ValidatorService } from './../validator/validator.service';
   providedIn: 'root'
 })
 export class PersonService {
-
+  private readonly COLLECTION_ID = 'persons';
   constructor(
     private db: DatabaseService,
     private validator: ValidatorService
@@ -23,8 +23,17 @@ export class PersonService {
    * @param id String with rut of the person.
    */
   delete(id) {
-    return this.db.delete('persons', id);
+    return this.db.delete(this.COLLECTION_ID, id);
   } // end func delete
+
+  /**
+   * @description
+   * Provides an Observable with data of the Person with specified id.
+   * @param id Rut of the person. Unique in DB.
+   */
+  watch(id) {
+    return this.db.watch(this.COLLECTION_ID, id);
+  } // end func watch
 
   /**
    * @description
@@ -36,7 +45,7 @@ export class PersonService {
     if ( !this.isPerson(data) ) {
       return Promise.reject(false);
     }
-    return this.db.set('persons', id, data)
+    return this.db.set(this.COLLECTION_ID, id, data)
       .then(() => {
         return Promise.resolve(true);
       }, (reason) => {
